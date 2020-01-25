@@ -1,0 +1,95 @@
+<html ng-app="mainApp">
+<head>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	
+	<link href="styles.css" />
+</head>
+<body ng-controller="appController">
+	<div class="d-flex justify-content-center ">
+		<h1>BIENVENIDO</h1>
+	</div>
+	<div class="d-flex justify-content-center ">
+		<a href="#" class="btn btn-success btn-lg active" role="button" data-toggle="modal" data-target="#TaskAdd" aria-pressed="true">Nueva Tarea</a> <br>
+	</div>
+	<div></div>
+	<div class="card">
+		<div class="card-deck row">
+			<div class="col-md-4 " ng-repeat="task in tasks.data_pending | orderBy : date_start " style="margin: 10px 0px;">
+				<div class="card border-success">
+					<div class="card-body">
+						<button type="button" class="close" ng-click="deleteTask.remove(task)">&times;</button>
+					  <h5 class="card-title">{{task.title}}</h5>
+					  
+					  <p class="card-text">{{task.description}}</p>
+					</div>
+					<div class="card-footer  bg-transparent border-success">
+						<div class="d-flex justify-content-between">
+							<small class="text-muted">{{task.date_start| date}}</small>
+							<select class="form-control form-control-sm" ng-model="task.status" style="width:40%"  ng-change="updateTask.update(task)">
+							<option value="Completada">Completada</option>
+							<option value="Pendiente">Pendiente</option>
+						</select>
+						</div>
+					 
+					</div>
+				  </div>
+			</div>
+			<div class="col-md-4 " ng-repeat="task in tasks.data_success"  style="margin: 10px 0px;">
+				<div class="card border-danger">
+					<div class="card-body">
+						<button type="button" class="close" ng-click="deleteTask.remove(task)">&times;</button>
+					  <h5 class="card-title">{{task.title}}</h5>
+					  <p class="card-text">{{task.description}}</p>
+					</div>
+					<div class="card-footer  bg-transparent border-danger">
+						<div class="d-flex justify-content-between">
+							<small class="text-muted">{{task.date_end| date}}</small>
+							<select class="form-control form-control-sm" ng-model="task.status" style="width:40%" ng-change="updateTask.update(task)">
+							<option value="Completada">Completada</option>
+							<option value="Pendiente">Pendiente</option>
+						</select>
+						</div>
+					 
+					</div>
+				  </div>
+			</div>
+		</div>
+		
+	</div>
+	<div class="modal fade" data-backdrop="static" data-keyboard="false" id="TaskAdd">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+	
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<h4 class="modal-title poptitle">Agregar Tarea</h4>
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</div>
+				<form class="was-validated" ng-submit="addTask.send(task)">
+					<!-- Modal body -->
+					<div class="modal-body" style="padding: 30px 20px; text-align: center">
+						
+						  <div class="form-group">
+							<label for="validationServer03">Titulo:</label>
+      						<input type="text" class="form-control " placeholder="Tarea"  ng-model="task.title"required>
+							
+						  </div>
+						  <div class="form-group">
+							<label for="exampleFormControlTextarea1">Descripción:</label>
+    					   	<textarea class="form-control" id="exampleFormControlTextarea1" placeholder="Descripcíon de la tarea" ng-model="task.description" rows="3" required></textarea>
+							</textarea>
+						  </div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn btn-success">Guardar</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
