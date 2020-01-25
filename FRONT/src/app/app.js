@@ -49,7 +49,13 @@ mainApp.controller('appController',  ['$scope','$http', function ($scope, $http)
             });
     
       
-         }).catch(err => console.log(err))
+         }).catch(err => {
+            console.log(err.data)
+         if(err.data==null){
+            $scope.tasks.isError= true
+            $scope.tasks.error= 'Inicia el servico de Back con nodemon en otra terminal.'
+         }
+        })
     }
 
     function add(params) {
@@ -70,6 +76,8 @@ mainApp.controller('appController',  ['$scope','$http', function ($scope, $http)
              if(resp.data.success){
                 $scope.addTask.isLoaded=false
                 $('#TaskAdd').modal('hide')
+                $scope.task={}
+                console.log($scope.task)
                 get()
              }
              else{

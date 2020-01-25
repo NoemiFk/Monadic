@@ -14,6 +14,10 @@
 	<div class="d-flex justify-content-center ">
 		<a href="#" class="btn btn-success btn-lg active" role="button" data-toggle="modal" data-target="#TaskAdd" aria-pressed="true">Nueva Tarea</a> <br>
 	</div>
+	<br>
+	<div class="alert alert-warning" role="alert" style="text-align: center;" ng-if="tasks.isError">
+		{{tasks.error}}
+	  </div>
 	<div></div>
 	<div class="card">
 		<div class="card-deck row">
